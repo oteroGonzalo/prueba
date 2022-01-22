@@ -10,6 +10,7 @@ const Game = {
   player: undefined,
   enemies: [],
 
+
   // keys: {
   //   TOP: 38,
   //   SPACE: 32
@@ -23,6 +24,7 @@ const Game = {
     this.drawBackground();
     this.drawAll()
     this.setEventHandlers()
+
 
 
   },
@@ -50,6 +52,9 @@ const Game = {
     this.clear()
     this.drawBackground()
     this.player.draw()
+    this.createEnemies()
+    this.enemies.forEach(enemies => enemies.draw())
+
 
   },
 
@@ -57,18 +62,26 @@ const Game = {
     this.ctx.clearRect(0, 0, this.width, this.height)
   },
 
+  createEnemies() {
+    if (this.framesCounter % 20 === 0) {
+      let randomNum = Math.floor(Math.random() * this.canvas.width) + 1
+      this.enemies.push(new Enemy(this.ctx, randomNum, 0, 20))
+      console.log(this.enemies)
+    }
+  },
+
   start() {
     this.reset();
 
     this.interval = setInterval(() => {
-      // this.framesCounter > 5000
-      //   ? (this.framesCounter = 0)
-      //   : this.framesCounter++;
+      this.framesCounter > 5000
+        ? (this.framesCounter = 0)
+        : this.framesCounter++;
 
 
       this.drawAll();
 
-      // this.isCollision() ? this.gameOver() : null;
+      this.isCollision() ? this.gameOver() : null;
     }, 1000 / this.FPS);
 
   },
@@ -81,5 +94,19 @@ const Game = {
       key === "ArrowUp" ? this.player.move('up') : null
       key === "ArrowDown" ? this.player.move('down') : null
     });
+  },
+  isCollision() {
+    return this.enemies.some(obs => {
+      return (
+        (this.player.posX < obs.posX + 20 && this.player.posX + 15 > obs.posX &&
+          this.player.posY < obs.posY + 20 && this.player.posY + 15 > obs.posY)
+        // The objects are touching
+
+      )
+    })
+  },
+  gameOver() {
+    clearInterval(this.interval)
+    console.log("here")
   }
 }
