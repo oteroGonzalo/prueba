@@ -20,10 +20,19 @@ class Player {
     this.ctx.fill();
   }
 
-  move() {
+  move(direction) {
+    if (direction == "right") {
 
-    this.gameWidth++
-    this.gameHeight++
+      this.gameWidth += 100
+    } else if (direction == "left") {
+      this.gameWidth -= 100
+    } else if (direction == "up") {
+      this.gameHeight -= 100
+    } else {
+      this.gameHeight += 100
+    }
+
+
     console.log(this.gameWidth)
   }
 

@@ -22,6 +22,7 @@ const Game = {
     this.start()
     this.drawBackground();
     this.drawAll()
+    this.setEventHandlers()
 
 
   },
@@ -49,7 +50,7 @@ const Game = {
     this.clear()
     this.drawBackground()
     this.player.draw()
-    this.player.move()
+
   },
 
   clear() {
@@ -69,5 +70,16 @@ const Game = {
 
       // this.isCollision() ? this.gameOver() : null;
     }, 1000 / this.FPS);
+
   },
-};
+
+  setEventHandlers() {
+    document.addEventListener("keydown", (event) => {
+      const { key } = event;
+      key === "ArrowRight" ? this.player.move("right") : null;
+      key === "ArrowLeft" ? this.player.move("left") : null;
+      key === "ArrowUp" ? this.player.move('up') : null
+      key === "ArrowDown" ? this.player.move('down') : null
+    });
+  }
+}
