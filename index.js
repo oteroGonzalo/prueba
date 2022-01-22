@@ -1,2 +1,2 @@
 window.onload = () => Game.init();
-console.log("yo")
+console.log("123")
