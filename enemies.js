@@ -6,7 +6,10 @@ class Enemy {
         this.posY = posY
         this.radius = radius
 
-        this.vel = 10
+        this.vel = 1
+        this.randomNum = Math.random() * 3 - 1.5
+        this.randomNum1 = Math.random() * 3 - 1.5
+
 
 
 
@@ -17,10 +20,14 @@ class Enemy {
         this.ctx.beginPath();
         this.ctx.arc(this.posX, this.posY, this.radius, 0, 2 * Math.PI);
         this.ctx.fill();
+
         this.move()
+
+
+
     }
     move() {
-        this.posX += this.vel
-        this.posY += this.vel
+        this.posX += this.randomNum
+        this.posY += this.randomNum1
     }
 }

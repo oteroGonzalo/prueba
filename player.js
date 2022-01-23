@@ -22,13 +22,13 @@ class Player {
   move(direction) {
     if (direction == "right") {
 
-      this.posX += 100
+      this.posX += 10
     } else if (direction == "left") {
-      this.posX -= 100
+      this.posX -= 10
     } else if (direction == "up") {
-      this.posY -= 100
+      this.posY -= 10
     } else {
-      this.posY += 100
+      this.posY += 10
     }
 
 

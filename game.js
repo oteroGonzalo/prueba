@@ -63,9 +63,9 @@ const Game = {
   },
 
   createEnemies() {
-    if (this.framesCounter % 20 === 0) {
+    if (this.framesCounter % 10 === 0) {
       let randomNum = Math.floor(Math.random() * this.canvas.width) + 1
-      this.enemies.push(new Enemy(this.ctx, randomNum, 0, 20))
+      this.enemies.push(new Enemy(this.ctx, randomNum, 0, 5))
       console.log(this.enemies)
     }
   },
