@@ -9,6 +9,8 @@ const Game = {
   background: undefined,
   player: undefined,
   enemies: [],
+  bomb: undefined,
+
 
 
   // keys: {
@@ -20,7 +22,9 @@ const Game = {
     this.canvas = document.getElementById("canvas");
     this.ctx = this.canvas.getContext("2d");
     this.setDimensions();
+
     this.start()
+
     this.drawBackground();
     this.drawAll()
     this.setEventHandlers()
@@ -43,17 +47,33 @@ const Game = {
 
   reset() {
     this.player = new Player(this.ctx, this.canvas.width / 2, this.canvas.height / 2);
-
+    this.enemies = []
+    this.bomb = (new Bomb(this.ctx, 250, 250))
 
 
   },
 
   drawAll() {
     this.clear()
+
     this.drawBackground()
     this.player.draw()
     this.createEnemies()
     this.enemies.forEach(enemies => enemies.draw())
+    this.bomb.draw()
+    this.bomb.updateFrameCounter(this.framesCounter)
+
+    // if (this.framesCounter % 1200 === 0) {
+    //   this.bomb.changeColor()
+    //   console.log("1")
+
+    // }
+
+
+
+    this.clearEnemies()
+
+
 
 
   },
@@ -65,9 +85,18 @@ const Game = {
   createEnemies() {
     if (this.framesCounter % 10 === 0) {
       let randomNum = Math.floor(Math.random() * this.canvas.width) + 1
-      this.enemies.push(new Enemy(this.ctx, randomNum, 0, 5))
-      console.log(this.enemies)
+      this.enemies.push(new Enemy(this.ctx, randomNum, 0, 5, this.framesCounter))
+
+
+
+
     }
+  },
+
+  clearEnemies() {
+    this.enemies = this.enemies.filter(elm => elm.posX >= 0 && elm.posY < this.canvas.height && elm.posX < this.canvas.width
+
+    )
   },
 
   start() {
@@ -80,6 +109,7 @@ const Game = {
 
 
       this.drawAll();
+      console.log("this is " + this.framesCounter)
 
       this.isCollision() ? this.gameOver() : null;
     }, 1000 / this.FPS);
